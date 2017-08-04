@@ -4,8 +4,8 @@
   "description": "Online map user tracker",
   "main": "index.js",
   "scripts": {
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "client": "webpack -d --watch",
+    "server": "nodemon server/index.js"
   },
   "author": "Cameron Mehrabian",
   "license": "MIT",

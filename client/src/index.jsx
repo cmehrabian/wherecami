@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import MapContainer from './components/map/map.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class App extends Component {
   render () {
     return (
       <div>
-        APP
+        <MapContainer />
       </div>
     );
   }
