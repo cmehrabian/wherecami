@@ -1,5 +1,9 @@
 ### node etc ###
 
+node_modules
+client/dist/bundle.js
+config.js
+
 # Logs
 logs
 *.log
