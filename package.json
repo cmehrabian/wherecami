@@ -4,7 +4,7 @@
   "description": "Online map user tracker",
   "main": "index.js",
   "scripts": {
-    "react-dev" : "webpack -d --watch",
+    "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"
   },
   "author": "Cameron Mehrabian",
@@ -17,8 +17,10 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.17.0",
     "express": "^4.15.0",
+    "google-maps-react": "^1.1.0",
     "mongoose": "^4.9.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
