@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 mongoose.connect('mongodb://localhost/wherecami');
 
 const db = mongoose.connection;
+
 
 db.on('error', function() {
   console.log('mongoose connection error');

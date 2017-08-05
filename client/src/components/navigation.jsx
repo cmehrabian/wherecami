@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Button, Fade, Glyphicon } from 'react-bootstrap';
-
+import { Button, Fade, Glyphicon, FieldGroup, FormGroup, ControlLabel } from 'react-bootstrap';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import { LoginForm } from './loginform.jsx';
 
 export class Navigation extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      username: '',
+      password: ''
+    };
   }
   render() {
     const Nav = styled.nav`
@@ -29,15 +33,14 @@ export class Navigation extends Component {
     return(
       <Nav>
         <Button bsStyle='default' onClick={()=> this.setState({ open: !this.state.open })}>
-         <Glyphicon glyph="th-large"></Glyphicon>
+         <Glyphicon glyph='th-large'></Glyphicon>
        </Button>
-       <Button  bsStyle='default ml'>
-         <Glyphicon glyph="user"></Glyphicon>
+       <Button bsStyle='default ml'>
+         <Glyphicon glyph='user'></Glyphicon>
        </Button>
        <Fade in={this.state.open}>
          <DropDown>
-           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-           Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+           <LoginForm />
          </DropDown>
        </Fade>
       </Nav>
