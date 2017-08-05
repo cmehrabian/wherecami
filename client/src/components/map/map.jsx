@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper, Polygon } from 'google-maps-react';
 import { TOKEN } from './config.js';
+import { Navigation } from '../navigation.jsx';
 import axios from 'axios';
 
 export class MapContainer extends Component {
@@ -15,8 +16,9 @@ export class MapContainer extends Component {
       activeMarker: {},
       showingInfoWindow: false
     }
+    console.log(this);
 
-    this.onMarkerClick = this.onMarkerClick.bind(this);
+    // this.onMarkerClick = this.onMarkerClick.bind(this);
   }
   // Pull location when page loads
   componentDidMount() {
@@ -54,20 +56,24 @@ export class MapContainer extends Component {
       return <div>Loading...</div>
     }
     return (
-      <Map
-        style={style}
-        google={this.props.google}
-        zoom={14}>
+      <div>
+        <Map
+          style={style}
+          google={this.props.google}
+          zoom={14}
+          >
 
-        <Marker
-          position={this.state.currentLocation}
-          icon={{
-            url: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAgxAAAAJDg3N2UwOTkzLWM4MDAtNDQ3Yi04YjNjLWVmODQwYmM1NmUwZg.jpg",
-            anchor: new google.maps.Point(0,45),
-            scaledSize: new google.maps.Size(45,45)
-          }}/>
+          <Marker
+            position={this.state.currentLocation}
+            icon={{
+              url: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAgxAAAAJDg3N2UwOTkzLWM4MDAtNDQ3Yi04YjNjLWVmODQwYmM1NmUwZg.jpg",
+              anchor: new google.maps.Point(0,45),
+              scaledSize: new google.maps.Size(45,45)
+            }}/>
 
-      </Map>
+          </Map>
+          <Navigation />
+      </div>
     )
   }
 }
