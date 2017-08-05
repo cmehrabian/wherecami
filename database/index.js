@@ -12,17 +12,14 @@ db.once('open', function() {
 });
 
 let locationSchema = mongoose.Schema({
-  latitude: Number,
-  longitude: Number
+  lat: Number,
+  lng: Number
 });
 
 let Location = mongoose.model('Location', locationSchema);
 
-const save = ({latitude, longitude}) => {
-  let location = new Location({
-    latitude,
-    longitude
-  });
+const save = ({lat, lng}) => {
+  let location = new Location({ lat, lng });
   location.save((error, location) => {
     if(error) {
       console.log(error);

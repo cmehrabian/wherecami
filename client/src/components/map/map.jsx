@@ -8,28 +8,43 @@ export class MapContainer extends Component {
     super(props);
     this.state = {
       currentLocation: {
-        latitude: 35.8617,
-        longitude: 104.1954
-      }
+        lat: 35.8617,
+        lng: 104.1954
+      },
+      selectedPlace: {},
+      activeMarker: {},
+      showingInfoWindow: false
     }
+
+    this.onMarkerClick = this.onMarkerClick.bind(this);
   }
+  // Pull location when page loads
   componentDidMount() {
     if( navigator && navigator.geolocation ) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
         this.setState({
-          currentLocation: { latitude, longitude }
+          currentLocation: { lat: latitude, lng: longitude }
         })
         this.pushLocation(latitude, longitude);
       });
     }
   }
+  // Save to Database
   pushLocation(lat, lng) {
-    axios.post('/location', { latitude: lat, longitude: lng })
+    axios.post('/location', { lat, lng })
       .then((response) => {
         console.log("saved");
       });
   }
+  // Marker click
+  // onMarkerClick(props, marker, e) {
+  //   this.setState({
+  //     selectedPlace: props,
+  //     activeMarker: marker,
+  //     showingInfoWindow: true
+  //   });
+  // }
   render() {
     const style = {
       width: '100vw',
@@ -43,6 +58,15 @@ export class MapContainer extends Component {
         style={style}
         google={this.props.google}
         zoom={14}>
+
+        <Marker
+          position={this.state.currentLocation}
+          icon={{
+            url: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAgxAAAAJDg3N2UwOTkzLWM4MDAtNDQ3Yi04YjNjLWVmODQwYmM1NmUwZg.jpg",
+            anchor: new google.maps.Point(0,45),
+            scaledSize: new google.maps.Size(45,45)
+          }}/>
+
       </Map>
     )
   }
