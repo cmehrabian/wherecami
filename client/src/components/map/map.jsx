@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper, Polygon } from 'google-maps-react';
 import { TOKEN } from './config.js';
+import axios from 'axios';
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -19,8 +20,15 @@ export class MapContainer extends Component {
         this.setState({
           currentLocation: { latitude, longitude }
         })
+        this.pushLocation(latitude, longitude);
       });
     }
+  }
+  pushLocation(lat, lng) {
+    axios.post('/location', { latitude: lat, longitude: lng })
+      .then((response) => {
+        console.log("saved");
+      });
   }
   render() {
     const style = {

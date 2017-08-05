@@ -12,16 +12,32 @@ db.once('open', function() {
 });
 
 let locationSchema = mongoose.Schema({
+  latitude: Number,
+  longitude: Number
 });
 
 let Location = mongoose.model('Location', locationSchema);
 
-const selectAll = function(callback) {
-  Item.find({}, function(err, items) {
+const save = ({latitude, longitude}) => {
+  let location = new Location({
+    latitude,
+    longitude
+  });
+  location.save((error, location) => {
+    if(error) {
+      console.log(error);
+    }
+  });
+}
+
+const findAll = function(callback) {
+  Location.find({}, function(err, locations) {
     if(err) {
       callback(err, null);
     } else {
-      callback(null, items);
+      callback(null, locations);
     }
   });
 };
+
+module.exports.save = save;
