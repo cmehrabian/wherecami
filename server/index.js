@@ -41,6 +41,14 @@ app.get('/secret', isLoggedIn, function(req, res){
   res.end('secret');
 });
 
+app.get('isLoggedIn', function(req, res) {
+  if(req.isAuthenticated()){
+
+  } else {
+
+  }
+});
+
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
     return next();

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper, Polygon } from 'google-maps-react';
 import { TOKEN } from './config.js';
-import { Navigation } from '../navigation.jsx';
 import axios from 'axios';
 
 export class MapContainer extends Component {
@@ -16,7 +15,6 @@ export class MapContainer extends Component {
       activeMarker: {},
       showingInfoWindow: false
     }
-    console.log(this);
 
     // this.onMarkerClick = this.onMarkerClick.bind(this);
   }
@@ -72,7 +70,6 @@ export class MapContainer extends Component {
             }}/>
 
           </Map>
-          <Navigation />
       </div>
     )
   }

@@ -18,6 +18,7 @@ export class Navigation extends Component {
       text-align: right;
       right: 10px;
       top: 10px;
+      z-index: 99;
     `;
     const DropDown = styled.div`
       width: 150px;

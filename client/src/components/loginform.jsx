@@ -11,7 +11,7 @@ export class LoginForm extends Component {
         username: '',
         password: ''
       },
-      isLoggedIn: false
+      isLoggedIn: ''
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +31,9 @@ export class LoginForm extends Component {
         })
       })
       .catch((response) => {
-
+        this.setState({
+          isLoggedIn: false
+        });
       });
   }
   render() {
