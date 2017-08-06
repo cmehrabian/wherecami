@@ -11,21 +11,35 @@ export class LoginForm extends Component {
         username: '',
         password: ''
       },
+      loggedInUser: {}
     };
     this.onChange = this.onChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
   onChange(e) {
     this.setState({
       user: Object.assign(this.state.user,  { [e.target.id]: e.target.value })
     });
   }
-  handleSubmit() {
+  handleRegister() {
     axios.post('/register', this.state.user)
       .then((response) => {
+        // let user = response.data.user;
+        this.props.isLoggedInCallback(response.data.isLoggedin);
+      })
+      .catch((response) => {
+        this.props.isLoggedInCallback(false);
+      });
+  }
+  handleLogin() {
+    axios.post('/login', this.state.user)
+      .then((response) => {
+        // pass the user data as well back
         this.props.isLoggedInCallback(true);
       })
       .catch((response) => {
+        // pass the user anom data
         this.props.isLoggedInCallback(false);
       });
   }
@@ -35,13 +49,13 @@ export class LoginForm extends Component {
         <ControlLabel>Login</ControlLabel>
         <FormControl id='username' type='text' onChange={this.onChange} value={this.state.username} placeholder='Username' />
         <FormControl id='password' type='password' onChange={this.onChange} value={this.state.password} placeholder='Password' />
-        <Button onClick={this.handleSubmit} type='submit'>Submit</Button>
+        <Button onClick={this.handleRegister} type='submit'>Submit</Button>
       </FormGroup>
     );
     if(this.props.isLoggedIn) {
       return (
         <div>
-          Hello user
+          {`Hello User`}
         </div>
       );
     } else {

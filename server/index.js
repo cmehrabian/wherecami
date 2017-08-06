@@ -63,7 +63,6 @@ app.get('/secret', isLoggedIn, function(req, res){
 });
 
 app.get('/isLoggedIn', function(req, res) {
-  console.log("inin", req);
   if(req.isAuthenticated()){
     res.json(true);
   } else {
@@ -78,20 +77,23 @@ function isLoggedIn(req, res, next){
   res.end('Not logged in.');
 }
 
-app.post("/login", passport.authenticate("local", {
-    successRedirect: "/secret",
-    failureRedirect: "/login"
-}), function(req, res){
-});
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log('sucess');
+    res.redirect('/');
+  });
 
 //handling user sign up
 app.post('/register', function(req, res){
   User.register(new User({username: req.body.username}), req.body.password, function(error, user){
     if(error){
-      res.end(error);
+      res.json(false);
     }
     passport.authenticate('local')(req, res, function(){
-      res.redirect('secret');
+      let { username, _id } = user;
+      res.json({ isLoggedin: true, user: { _id, username } });
     });
   });
 });

@@ -39,7 +39,9 @@ export class Navigation extends Component {
        </Button>
        <Fade in={this.state.open}>
          <DropDown>
-           <LoginForm isLoggedIn={this.props.isLoggedIn} isLoggedInCallback={this.props.isLoggedInCallback} />
+           <LoginForm
+             isLoggedIn={this.props.isLoggedIn}
+             isLoggedInCallback={this.props.isLoggedInCallback} />
          </DropDown>
        </Fade>
       </Nav>

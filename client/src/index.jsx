@@ -11,6 +11,7 @@ class App extends Component {
       isLoggedIn: false
     }
     this.isLoggedInCallback = this.isLoggedInCallback.bind(this);
+    this.setUser = this.setUser.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +30,13 @@ class App extends Component {
     this.setState({
       isLoggedIn: bool
     });
+  }
+
+  setUser(user) {
+    console.log('setting user');
+    // this.setState({
+    //   user: user
+    // })
   }
 
   render () {
