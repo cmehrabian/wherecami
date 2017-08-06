@@ -11,7 +11,6 @@ export class LoginForm extends Component {
         username: '',
         password: ''
       },
-      isLoggedIn: ''
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,20 +19,14 @@ export class LoginForm extends Component {
     this.setState({
       user: Object.assign(this.state.user,  { [e.target.id]: e.target.value })
     });
-    console.log(this.state);
   }
   handleSubmit() {
     axios.post('/register', this.state.user)
       .then((response) => {
-        console.log('user saved');
-        this.setState({
-          isLoggedIn: true
-        })
+        this.props.isLoggedInCallback(true);
       })
       .catch((response) => {
-        this.setState({
-          isLoggedIn: false
-        });
+        this.props.isLoggedInCallback(false);
       });
   }
   render() {
@@ -45,7 +38,7 @@ export class LoginForm extends Component {
         <Button onClick={this.handleSubmit} type='submit'>Submit</Button>
       </FormGroup>
     );
-    if(this.state.isLoggedIn) {
+    if(this.props.isLoggedIn) {
       return (
         <div>
           Hello user

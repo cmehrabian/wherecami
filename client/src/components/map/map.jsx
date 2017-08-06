@@ -13,6 +13,7 @@ export class MapContainer extends Component {
       },
       selectedPlace: {},
       activeMarker: {},
+      allPlaces: [],
       showingInfoWindow: false
     }
 
@@ -26,15 +27,27 @@ export class MapContainer extends Component {
         this.setState({
           currentLocation: { lat: latitude, lng: longitude }
         })
-        this.pushLocation(latitude, longitude);
+        this.saveLocation(latitude, longitude);
       });
     }
   }
   // Save to Database
-  pushLocation(lat, lng) {
+  saveLocation(lat, lng) {
     axios.post('/location', { lat, lng })
       .then((response) => {
         console.log("saved");
+      });
+  }
+  // Grab all Users Location
+  fetchAllLocations() {
+    axios.get('/locations')
+      .then((response) => {
+        this.state({
+          allPlaces: response.locations
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
   // Marker click

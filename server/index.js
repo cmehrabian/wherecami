@@ -24,12 +24,33 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser((user, done) => {
+   done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then((user) => {
+    if (user) {
+      done(null, user.get());
+    } else {
+      done(null, null);
+    }
+  });
+});
+
 app.use(express.static(__dirname + '/../client/dist'));
 
 
 app.get('/location', function (req, res) {
+});
+
+// fetch all locations
+app.get('/locations', (req, res) => {
+  database.findAll((locations) => {
+    res.json(locations);
+  });
 });
 
 app.post('/location', function (req, res) {
@@ -41,11 +62,12 @@ app.get('/secret', isLoggedIn, function(req, res){
   res.end('secret');
 });
 
-app.get('isLoggedIn', function(req, res) {
+app.get('/isLoggedIn', function(req, res) {
+  console.log("inin", req);
   if(req.isAuthenticated()){
-
+    res.json(true);
   } else {
-
+    res.json(false);
   }
 });
 
@@ -66,8 +88,6 @@ app.post("/login", passport.authenticate("local", {
 app.post('/register', function(req, res){
   User.register(new User({username: req.body.username}), req.body.password, function(error, user){
     if(error){
-      console.log(error);
-      console.log('it errors here');
       res.end(error);
     }
     passport.authenticate('local')(req, res, function(){

@@ -9,7 +9,8 @@ export class Navigation extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      menuOpen: false
     };
   }
   render() {
@@ -33,15 +34,12 @@ export class Navigation extends Component {
     `;
     return(
       <Nav>
-        <Button bsStyle='default' onClick={()=> this.setState({ open: !this.state.open })}>
-         <Glyphicon glyph='th-large'></Glyphicon>
-       </Button>
-       <Button bsStyle='default ml'>
+       <Button bsStyle='default ml' onClick={()=> this.setState({ open: !this.state.open })}>
          <Glyphicon glyph='user'></Glyphicon>
        </Button>
        <Fade in={this.state.open}>
          <DropDown>
-           <LoginForm />
+           <LoginForm isLoggedIn={this.props.isLoggedIn} isLoggedInCallback={this.props.isLoggedInCallback} />
          </DropDown>
        </Fade>
       </Nav>

@@ -41,3 +41,4 @@ const findAll = function(callback) {
 };
 
 module.exports.save = save;
+module.exports.findAll = findAll;
