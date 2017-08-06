@@ -19,17 +19,26 @@ export class MapContainer extends Component {
 
     // this.onMarkerClick = this.onMarkerClick.bind(this);
   }
-  // Pull location when page loads
-  componentDidMount() {
-    if( navigator && navigator.geolocation ) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        const { latitude, longitude } = pos.coords;
-        this.setState({
-          currentLocation: { lat: latitude, lng: longitude }
-        })
-        this.saveLocation(latitude, longitude);
-      });
+
+  // Update location when user logs in
+  componentWillReceiveProps(nextProps) {
+    if (this.props.user.username !== nextProps.user.username) {
+      if( navigator && navigator.geolocation ) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const { latitude, longitude } = pos.coords;
+          this.setState({
+            currentLocation: { lat: latitude, lng: longitude }
+          })
+          this.saveLocation(latitude, longitude);
+          console.log("saved location at", latitude, longitude);
+        });
+      }
     }
+  }
+
+  // Pulls latest location
+  componentDidMount() {
+    
   }
   // Save to Database
   saveLocation(lat, lng) {

@@ -40,6 +40,8 @@ export class Navigation extends Component {
        <Fade in={this.state.open}>
          <DropDown>
            <LoginForm
+             setUser={this.props.setUser}
+             user={this.props.user}
              isLoggedIn={this.props.isLoggedIn}
              isLoggedInCallback={this.props.isLoggedInCallback} />
          </DropDown>

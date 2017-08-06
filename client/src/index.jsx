@@ -8,7 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      user: {}
     }
     this.isLoggedInCallback = this.isLoggedInCallback.bind(this);
     this.setUser = this.setUser.bind(this);
@@ -33,20 +34,21 @@ class App extends Component {
   }
 
   setUser(user) {
-    console.log('setting user');
-    // this.setState({
-    //   user: user
-    // })
+    this.setState({
+      user: user
+    });
   }
 
   render () {
     return (
       <div>
         <Navigation
+          setUser={this.setUser}
+          user={this.state.user}
           isLoggedIn={this.state.isLoggedIn}
           isLoggedInCallback={this.isLoggedInCallback}
             />
-        <MapContainer />
+          <MapContainer user={this.state.user}/>
       </div>
     );
   }

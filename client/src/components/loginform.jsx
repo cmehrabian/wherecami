@@ -33,14 +33,17 @@ export class LoginForm extends Component {
       });
   }
   handleLogin() {
+    console.log('logging in...');
     axios.post('/login', this.state.user)
       .then((response) => {
         // pass the user data as well back
         this.props.isLoggedInCallback(true);
+        this.props.setUser(response.data.user);
       })
       .catch((response) => {
         // pass the user anom data
         this.props.isLoggedInCallback(false);
+        // this.props.setUser({})
       });
   }
   render() {
@@ -49,13 +52,13 @@ export class LoginForm extends Component {
         <ControlLabel>Login</ControlLabel>
         <FormControl id='username' type='text' onChange={this.onChange} value={this.state.username} placeholder='Username' />
         <FormControl id='password' type='password' onChange={this.onChange} value={this.state.password} placeholder='Password' />
-        <Button onClick={this.handleRegister} type='submit'>Submit</Button>
+        <Button onClick={this.handleLogin} type='submit'>Submit</Button>
       </FormGroup>
     );
     if(this.props.isLoggedIn) {
       return (
         <div>
-          {`Hello User`}
+          {`Hello ${this.props.user.username}`}
         </div>
       );
     } else {
