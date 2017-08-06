@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const database = require('../database');
-const { save } = require('../database/index.js');
-
+const { save, findLatest } = require('../database/index.js');
+var morgan = require('morgan')
 
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -12,6 +12,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 let app = express();
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -20,6 +21,8 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: false
 }));
+
+app.use(morgan('combined'));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,6 +49,12 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.get('/location', function (req, res) {
 });
 
+app.get('/latestLocation', function (req, res) {
+  database.findLatest((location) => {
+    res.json(location);
+  });
+});
+
 // fetch all locations
 app.get('/locations', (req, res) => {
   database.findAll((locations) => {
@@ -53,9 +62,12 @@ app.get('/locations', (req, res) => {
   });
 });
 
-app.post('/location', function (req, res) {
+app.post('/location', (req, res) => {
+  console.log('in saving...post...SERVER');
   let location = req.body;
+  console.log('in server', location)
   database.save(location);
+  res.send('Saving...');
 });
 
 app.get('/secret', isLoggedIn, function(req, res){

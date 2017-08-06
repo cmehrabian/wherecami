@@ -29,8 +29,8 @@ export class MapContainer extends Component {
           this.setState({
             currentLocation: { lat: latitude, lng: longitude }
           })
+          console.log("saving location at...", latitude, longitude);
           this.saveLocation(latitude, longitude);
-          console.log("saved location at", latitude, longitude);
         });
       }
     }
@@ -38,13 +38,22 @@ export class MapContainer extends Component {
 
   // Pulls latest location
   componentDidMount() {
-    
+    this.fetchLatestLocation();
+    // fetch latest location from Database
+    // pass in callback that setsState given response
+
+    // this.setState({
+    //   currentLocation: { lat: latitude, lng: longitude }
+    // })
   }
   // Save to Database
   saveLocation(lat, lng) {
+    console.log('saving.....');
     axios.post('/location', { lat, lng })
       .then((response) => {
         console.log("saved");
+      }).catch((error) => {
+        console.log('not saved', error);
       });
   }
   // Grab all Users Location
@@ -54,6 +63,23 @@ export class MapContainer extends Component {
         this.state({
           allPlaces: response.locations
         });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  fetchLatestLocation() {
+    axios.get('/latestLocation')
+      .then((response) => {
+        let { lat, lng } = response.data;
+        // console.log('state:', this.state);
+        this.setState({
+          currentLocation: {
+            lat,
+            lng
+          }
+        });
+        // console.log('AFTER state:', this.state);
       })
       .catch((error) => {
         console.log(error);
