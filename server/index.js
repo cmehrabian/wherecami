@@ -81,8 +81,8 @@ function isLoggedIn(req, res, next){
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log('sucess');
-    res.redirect('/');
+    let { username, _id } = req['user'];
+    res.json({user: { username, _id} });
   });
 
 //handling user sign up
