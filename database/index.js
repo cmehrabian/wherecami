@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/locations');
+mongoose.connect('mongodb://localhost/items');
 
-let locationSchema = mongoose.Schema({
+let itemSchema = mongoose.Schema({
 });
 
-let Location = mongoose.model('Location', locationSchema);
+let Item = mongoose.model('Item', locationSchema);
 
 let save = () => {
 }

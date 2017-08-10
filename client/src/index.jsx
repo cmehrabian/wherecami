@@ -8,9 +8,6 @@ class App extends React.Component {
     }
   }
 
-  search (term) {
-  }
-
   render () {
     return (
       <div>
