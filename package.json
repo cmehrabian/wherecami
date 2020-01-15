@@ -1,0 +1,14 @@
+{
+  "name": "wherecami",
+  "version": "1.0.0",
+  "description": "Cam finder",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cam",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
